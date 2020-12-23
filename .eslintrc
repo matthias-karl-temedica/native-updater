@@ -1,0 +1,8 @@
+{
+  "extends": ["oclif", "oclif-typescript"],
+  "rules": {
+    "quotes": "off",
+    "semi": "off",
+    "indent": "off"
+  }
+}
