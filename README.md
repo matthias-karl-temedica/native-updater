@@ -19,7 +19,7 @@ $ npm install -g updater
 $ native-updater COMMAND
 running command...
 $ native-updater (-v|--version|version)
-updater/0.0.0 darwin-x64 node-v15.3.0
+updater/1.0.0 darwin-x64 node-v15.3.0
 $ native-updater --help [COMMAND]
 USAGE
   $ native-updater COMMAND
@@ -28,28 +28,26 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`native-updater hello [FILE]`](#native-updater-hello-file)
+* [`native-updater check`](#native-updater-check)
 * [`native-updater help [COMMAND]`](#native-updater-help-command)
+* [`native-updater update [SEMVER]`](#native-updater-update-semver)
 
-## `native-updater hello [FILE]`
+## `native-updater check`
 
-describe the command here
+Outputs the current version from pbxproj and build.gradle
 
 ```
 USAGE
-  $ native-updater hello [FILE]
+  $ native-updater check
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 
 EXAMPLE
-  $ native-updater hello
-  hello world from ./src/hello.ts!
+  $ native-updater check
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/check.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.0/src/commands/check.ts)_
 
 ## `native-updater help [COMMAND]`
 
@@ -67,4 +65,24 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)_
+
+## `native-updater update [SEMVER]`
+
+Updates the version number in pbxproj and build.gradle files according to provided semver
+
+```
+USAGE
+  $ native-updater update [SEMVER]
+
+ARGUMENTS
+  SEMVER  (major|minor|patch|<Number>) semver
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ native-updater update major
+```
+
+_See code: [src/commands/update.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.0/src/commands/update.ts)_
 <!-- commandsstop -->
