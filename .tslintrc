@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript",
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "quotes": "off",
+    "semi": "off",
+    "indent": "off",
+    "arrow-parens": ["error", "always"]
+  }
+}
