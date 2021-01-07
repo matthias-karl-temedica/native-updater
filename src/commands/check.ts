@@ -4,25 +4,19 @@ import { getFiles } from "../application/get-files";
 import { checkVersion } from "../application/read-file";
 
 export default class CheckVersion extends Command {
-  static description = "describe the command here";
+  static description =
+    "Outputs the current version from pbxproj and build.gradle";
 
-  static examples = [
-    `$ native-updater hello
-  hello world from ./src/hello.ts!
-  `,
-  ];
+  static examples = [`$ native-updater check`];
 
   static flags = {
     help: flags.help({ char: "h" }),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({ char: "n", description: "name to print" }),
-    // flag with no value (-f, --force)
-    force: flags.boolean({ char: "f" }),
   };
 
-  static args = [{ name: "file" }];
-
   async run() {
+    this.parse(CheckVersion);
+
+    let versions: Array<string> = [];
     for (let [os, { key, fileName }] of Object.entries(config)) {
       const file = await getFiles(".", fileName);
 
@@ -31,8 +25,12 @@ export default class CheckVersion extends Command {
       }
 
       const version = await checkVersion(file, key);
-
+      versions.push(version);
       this.log(`${os}: ${version}`);
+    }
+
+    if (!versions.every((version) => version === versions[0])) {
+      this.error("Versions are out of sync");
     }
   }
 }

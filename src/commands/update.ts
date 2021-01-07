@@ -7,19 +7,23 @@ const replace = require("replace-in-file");
 import * as inquirer from "inquirer";
 
 export default class UpdateVersion extends Command {
-  static description = "describe the command here";
+  static description =
+    "Updates the version number in pbxproj and build.gradle files according to provided semver";
 
-  static examples = [
-    `$ native-updater hello
-  hello world from ./src/hello.ts!
-  `,
-  ];
+  static examples = [`$ native-updater update major`];
 
   static flags = {
     help: flags.help({ char: "h" }),
   };
 
-  static args = [{ name: "semver", options: ["major", "minor", "patch"] }];
+  static args = [
+    {
+      name: "semver",
+      options: ["major", "minor", "patch"],
+      hidden: false,
+      description: "semver",
+    },
+  ];
 
   async run() {
     const { args, flags } = this.parse(UpdateVersion);
