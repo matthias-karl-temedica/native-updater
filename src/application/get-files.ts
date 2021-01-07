@@ -15,7 +15,7 @@ async function getFiles(dir: string, search: string) {
 
   let searchName = search;
   if (search === "project.pbxproj") {
-    const { name } = parent().parse();
+    const { name } = require(`${process.cwd()}/package.json`);
     searchName = `${name}.xcodeproj/${search}`;
   }
 
