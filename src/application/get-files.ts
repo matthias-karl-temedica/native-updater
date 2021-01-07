@@ -12,7 +12,13 @@ async function getFiles(dir: string, search: string) {
     })
   );
 
-  return files.flat().find((file) => file?.includes(search));
+  let searchName = search;
+  if (search === "project.pbxproj") {
+    const { name } = require("../../package.json");
+    searchName = `${name}.xcodeproj/${search}`;
+  }
+
+  return files.flat().find((file) => file?.includes(searchName));
 }
 
 export { getFiles };
