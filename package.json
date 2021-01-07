@@ -1,5 +1,5 @@
 {
-  "name": "updater",
+  "name": "native-updater",
   "version": "1.0.0",
   "author": "Matthias Karl",
   "bin": {
