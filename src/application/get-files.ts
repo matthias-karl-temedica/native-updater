@@ -2,6 +2,7 @@ import { Dirent } from "fs";
 
 const { resolve } = require("path");
 const { readdir } = require("fs").promises;
+var parent = require("parent-package-json");
 
 async function getFiles(dir: string, search: string) {
   const dirents: Dirent[] = await readdir(dir, { withFileTypes: true });
@@ -14,7 +15,7 @@ async function getFiles(dir: string, search: string) {
 
   let searchName = search;
   if (search === "project.pbxproj") {
-    const { name } = require("../../package.json");
+    const { name } = parent().parse();
     searchName = `${name}.xcodeproj/${search}`;
   }
 
