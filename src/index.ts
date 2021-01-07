@@ -1,8 +1,14 @@
-const ANDROID_KEY = "versionName";
-const ANDROID_FILE = "build.gradle";
-const IOS_KEY = "MARKETING_VERSION";
-const IOS_FILE = "project.pbxproj";
+const config = {
+  ios: {
+    key: "MARKETING_VERSION",
+    fileName: "project.pbxproj",
+  },
+  android: {
+    key: "versionName",
+    fileName: "build.gradle",
+  },
+};
 
-export { ANDROID_KEY, ANDROID_FILE, IOS_FILE, IOS_KEY };
+export { config };
 
 export { run } from "@oclif/command";
