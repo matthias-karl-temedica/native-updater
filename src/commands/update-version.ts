@@ -4,6 +4,7 @@ import { getFiles } from "../application/get-files";
 import { checkVersion } from "../application/read-file";
 import { updateVersion } from "../application/update";
 const replace = require("replace-in-file");
+import * as inquirer from "inquirer";
 
 export default class UpdateVersion extends Command {
   static description = "describe the command here";
@@ -16,16 +17,24 @@ export default class UpdateVersion extends Command {
 
   static flags = {
     help: flags.help({ char: "h" }),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({ char: "n", description: "name to print" }),
-    // flag with no value (-f, --force)
-    force: flags.boolean({ char: "f" }),
   };
 
-  static args = [{ name: "newversion" }];
+  static args = [{ name: "semver", options: ["major", "minor", "patch"] }];
 
   async run() {
     const { args, flags } = this.parse(UpdateVersion);
+    let semver = args.semver;
+    if (!semver) {
+      let responses: any = await inquirer.prompt([
+        {
+          name: "semver",
+          message: "select a semver",
+          type: "list",
+          choices: [{ name: "major" }, { name: "minor" }, { name: "patch" }],
+        },
+      ]);
+      semver = responses.semver;
+    }
 
     for (let [os, { key, fileName }] of Object.entries(config)) {
       const file = await getFiles(".", fileName);
@@ -35,7 +44,7 @@ export default class UpdateVersion extends Command {
       }
 
       const version = await checkVersion(file, key);
-      const newVersion = await updateVersion(version, args.newversion);
+      const newVersion = await updateVersion(version, semver);
 
       const options = {
         files: file,
@@ -44,8 +53,8 @@ export default class UpdateVersion extends Command {
       };
 
       try {
-        const results = await replace(options);
-        this.log("Replacement results:", results);
+        await replace(options);
+        this.log(`${os}: ${newVersion}`);
       } catch (error) {
         this.error("Error occurred:", error);
       }

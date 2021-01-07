@@ -32,7 +32,7 @@ export default class CheckVersion extends Command {
 
       const version = await checkVersion(file, key);
 
-      console.log(`${os}: ${version}`);
+      this.log(`${os}: ${version}`);
     }
   }
 }
