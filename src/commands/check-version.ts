@@ -1,5 +1,6 @@
 import { Command, flags } from "@oclif/command";
-import { ANDROID_FILE, ANDROID_KEY, IOS_FILE, IOS_KEY } from "..";
+import { config } from "..";
+import { getFiles } from "../application/get-files";
 import { checkVersion } from "../application/read-file";
 
 export default class CheckVersion extends Command {
@@ -22,11 +23,16 @@ export default class CheckVersion extends Command {
   static args = [{ name: "file" }];
 
   async run() {
-    const { args, flags } = this.parse(CheckVersion);
+    for (let [os, { key, fileName }] of Object.entries(config)) {
+      const file = await getFiles(".", fileName);
 
-    const androidVersion = await checkVersion(ANDROID_FILE, ANDROID_KEY);
-    const iosVersion = await checkVersion(IOS_FILE, IOS_KEY);
+      if (!file) {
+        throw new Error("File not found");
+      }
 
-    console.log({ androidVersion, iosVersion });
+      const version = await checkVersion(file, key);
+
+      console.log(`${os}: ${version}`);
+    }
   }
 }

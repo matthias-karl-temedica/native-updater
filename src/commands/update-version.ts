@@ -1,5 +1,6 @@
 import { Command, flags } from "@oclif/command";
-import { ANDROID_FILE, ANDROID_KEY, IOS_FILE, IOS_KEY } from "..";
+import { config } from "..";
+import { getFiles } from "../application/get-files";
 import { checkVersion } from "../application/read-file";
 import { updateVersion } from "../application/update";
 const replace = require("replace-in-file");
@@ -26,13 +27,14 @@ export default class UpdateVersion extends Command {
   async run() {
     const { args, flags } = this.parse(UpdateVersion);
 
-    const androidVersion = await checkVersion(ANDROID_FILE, ANDROID_KEY);
-    const iosVersion = await checkVersion(IOS_FILE, IOS_KEY);
+    for (let [os, { key, fileName }] of Object.entries(config)) {
+      const file = await getFiles(".", fileName);
 
-    for (let { version, file } of [
-      { version: androidVersion, file: ANDROID_FILE },
-      { version: iosVersion, file: IOS_FILE },
-    ]) {
+      if (!file) {
+        throw new Error("File not found");
+      }
+
+      const version = await checkVersion(file, key);
       const newVersion = await updateVersion(version, args.newversion);
 
       const options = {
