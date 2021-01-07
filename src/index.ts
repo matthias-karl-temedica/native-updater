@@ -1,11 +1,11 @@
 const config = {
-  ios: {
-    key: "MARKETING_VERSION",
-    fileName: "project.pbxproj",
-  },
   android: {
     key: "versionName",
     fileName: "build.gradle",
+  },
+  ios: {
+    key: "MARKETING_VERSION",
+    fileName: "project.pbxproj",
   },
 };
 

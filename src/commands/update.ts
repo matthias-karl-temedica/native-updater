@@ -6,6 +6,8 @@ import { updateVersion } from "../application/update";
 const replace = require("replace-in-file");
 import * as inquirer from "inquirer";
 
+const semverRegex = /(?<=^v?|\sv?)(?:(?:0|[1-9]\d*)\.){2}(?:0|[1-9]\d*)(?:-(?:0|[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*)(?:\.(?:0|[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*))*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/gi;
+
 export default class UpdateVersion extends Command {
   static description =
     "Updates the version number in pbxproj and build.gradle files according to provided semver";
@@ -19,9 +21,9 @@ export default class UpdateVersion extends Command {
   static args = [
     {
       name: "semver",
-      options: ["major", "minor", "patch"],
+      // options: ["major", "minor", "patch"],
       hidden: false,
-      description: "semver",
+      description: "(major|minor|patch|<Number>) semver",
     },
   ];
 
@@ -40,7 +42,14 @@ export default class UpdateVersion extends Command {
       semver = responses.semver;
     }
 
-    for (let [os, { key, fileName }] of Object.entries(config)) {
+    if (
+      !["major", "minor", "patch"].includes(semver) &&
+      !semverRegex.test(semver)
+    ) {
+      throw new Error("Invalid version");
+    }
+
+    for await (let [os, { key, fileName }] of Object.entries(config)) {
       const file = await getFiles(".", fileName);
 
       if (!file) {
@@ -50,10 +59,13 @@ export default class UpdateVersion extends Command {
       const version = await checkVersion(file, key);
       const newVersion = await updateVersion(version, semver);
 
+      const getRegex = (os: string, key: string, version: string) =>
+        os === "ios" ? `${key} = ${version}` : `${key} "${version}"`;
+
       const options = {
         files: file,
-        from: new RegExp(version, "g"),
-        to: newVersion,
+        from: new RegExp(getRegex(os, key, version), "g"),
+        to: getRegex(os, key, newVersion),
       };
 
       try {

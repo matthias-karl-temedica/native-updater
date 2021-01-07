@@ -1,6 +1,6 @@
 function updateVersion(
   version: string,
-  newversion: "major" | "minor" | "patch"
+  newversion: "major" | "minor" | "patch" | string
 ): string {
   const [major, minor, patch] = version.split(".");
   switch (newversion) {
@@ -11,7 +11,7 @@ function updateVersion(
     case "patch":
       return `${major}.${minor}.${Number(patch) + 1}`;
     default:
-      return version;
+      return newversion;
   }
 }
 
