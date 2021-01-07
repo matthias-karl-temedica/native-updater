@@ -2,7 +2,6 @@ import { Dirent } from "fs";
 
 const { resolve } = require("path");
 const { readdir } = require("fs").promises;
-var parent = require("parent-package-json");
 
 async function getFiles(dir: string, search: string) {
   const dirents: Dirent[] = await readdir(dir, { withFileTypes: true });
