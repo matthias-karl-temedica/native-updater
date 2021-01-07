@@ -15,11 +15,11 @@ updater
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g updater
+$ npm install -g native-updater
 $ native-updater COMMAND
 running command...
 $ native-updater (-v|--version|version)
-updater/1.0.0 darwin-x64 node-v15.3.0
+native-updater/1.0.1 darwin-x64 node-v15.3.0
 $ native-updater --help [COMMAND]
 USAGE
   $ native-updater COMMAND
@@ -47,7 +47,7 @@ EXAMPLE
   $ native-updater check
 ```
 
-_See code: [src/commands/check.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.0/src/commands/check.ts)_
+_See code: [src/commands/check.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.1/src/commands/check.ts)_
 
 ## `native-updater help [COMMAND]`
 
@@ -84,5 +84,5 @@ EXAMPLE
   $ native-updater update major
 ```
 
-_See code: [src/commands/update.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.0/src/commands/update.ts)_
+_See code: [src/commands/update.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.1/src/commands/update.ts)_
 <!-- commandsstop -->
