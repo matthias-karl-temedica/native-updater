@@ -1,36 +1,39 @@
-updater
-=======
-
-
+# updater
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/updater.svg)](https://npmjs.org/package/updater)
-[![Downloads/week](https://img.shields.io/npm/dw/updater.svg)](https://npmjs.org/package/updater)
+[![Version](https://img.shields.io/npm/v/updater.svg)](https://www.npmjs.com/package/native-updater)
+[![Downloads/week](https://img.shields.io/npm/dw/updater.svg)](https://www.npmjs.com/package/native-updater)
 [![License](https://img.shields.io/npm/l/updater.svg)](https://github.com/matthias-karl-temedica/native-updater/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g native-updater
-$ native-updater COMMAND
-running command...
-$ native-updater (-v|--version|version)
-native-updater/1.0.5 darwin-x64 node-v15.3.0
+$ native-updater check # returns the current version of your app
+$ native-updater update (major|minor|patch|<VERSION>) #updates xcode project and build.gradle file
 $ native-updater --help [COMMAND]
 USAGE
   $ native-updater COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`native-updater check`](#native-updater-check)
-* [`native-updater help [COMMAND]`](#native-updater-help-command)
-* [`native-updater update [SEMVER]`](#native-updater-update-semver)
+
+- [`native-updater check`](#native-updater-check)
+- [`native-updater help [COMMAND]`](#native-updater-help-command)
+- [`native-updater update [SEMVER]`](#native-updater-update-semver)
 
 ## `native-updater check`
 
@@ -85,4 +88,5 @@ EXAMPLE
 ```
 
 _See code: [src/commands/update.ts](https://github.com/matthias-karl-temedica/native-updater/blob/v1.0.5/src/commands/update.ts)_
+
 <!-- commandsstop -->
