@@ -1,6 +1,6 @@
 {
   "name": "native-updater",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Matthias Karl",
   "bin": {
     "native-updater": "bin/run"
